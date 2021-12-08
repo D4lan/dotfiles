@@ -27,3 +27,8 @@ cask 'zoom'
 cask 'ringcentral'
 cask 'slack'
 {{- end }}
+
+{{- if eq .location "home" }}
+# Install these on home machines only
+mas 'WireGuard', id: 1451685025
+{{- end }}
