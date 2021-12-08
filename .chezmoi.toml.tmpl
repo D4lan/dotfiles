@@ -1,0 +1,8 @@
+{{- $email := promptString "email" -}}
+{{- $username:= promptString "username" -}}
+{{- $location:= promptString "location" -}}
+
+[data]
+    email = "{{ $email }}"
+    username = "{{ $username }}"
+    location = "{{ $location }}"

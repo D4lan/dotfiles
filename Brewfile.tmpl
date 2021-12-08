@@ -1,0 +1,29 @@
+# specify a directory to install
+cask_args appdir: '/Applications'
+
+# Global installs
+tap "homebrew/core"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "buo/cask-upgrade"
+cask 'google-chrome'
+cask 'alfred'
+cask 'rectangle'
+cask 'karabiner-elements'
+brew 'git'
+tap 'neovim/neovim' || true
+
+
+{{- if eq .location "home" }}
+# Install these on home machines only
+{{- end }}
+
+
+{{- if eq .location "work" }}
+# Install these on work machines only
+cask 'viscosity'
+cask 'microsoft-remote-desktop'
+cask 'zoom'
+cask 'ringcentral'
+cask 'slack'
+{{- end }}
