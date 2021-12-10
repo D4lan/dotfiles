@@ -8,7 +8,6 @@ tap "homebrew/cask"
 tap "buo/cask-upgrade"
 brew 'git'
 brew 'mas'
-cask 'google-chrome'
 cask 'alfred'
 cask 'rectangle'
 cask 'karabiner-elements'
@@ -17,6 +16,7 @@ tap 'neovim/neovim' || true
 
 {{- if eq .location "home" }}
 # Install these on home machines only
+cask 'google-chrome'
 {{- end }}
 
 
@@ -26,7 +26,8 @@ cask 'viscosity'
 cask 'microsoft-remote-desktop'
 cask 'zoom'
 cask 'ringcentral'
-cask 'slack'
+#cask 'slack'
+#cask 'google-chrome'
 {{- end }}
 
 {{- if eq .location "home" }}
