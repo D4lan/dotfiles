@@ -1,0 +1,26 @@
+
+set spell spelllang=en_us 
+set number relativenumber
+let mapleader = ","
+set directory^=$HOME/.vim/tmp//
+set ignorecase
+set incsearch
+set hlsearch
+vnoremap . :norm.<CR>
+set undodir=~/.vim/undodir
+set undofile
+
+
+
+hi clear SpellBad
+hi SpellBad cterm=underline
+" Set style for gVim
+hi SpellBad gui=undercurl
+
+" vimwiki settings
+set nocompatible
+filetype plugin on
+syntax on
+let g:vimwiki_list = [{'path': '~/Google\ Drive/My\ Drive/Notes/Wiki/',
+		      \ 'syntax': 'markdown', 'ext': '.md',
+                      \ 'path_html': '~/Google\ Drive/My\ Drive/Notes/Wiki/wiki_html'}]
