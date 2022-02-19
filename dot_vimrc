@@ -1,26 +1,126 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"               ██╗   ██╗██╗███╗   ███╗██████╗  ██████╗
+"               ██║   ██║██║████╗ ████║██╔══██╗██╔════╝
+"               ██║   ██║██║██╔████╔██║██████╔╝██║
+"               ╚██╗ ██╔╝██║██║╚██╔╝██║██╔══██╗██║
+"                ╚████╔╝ ██║██║ ╚═╝ ██║██║  ██║╚██████╗
+"                 ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" GLOBAL ----------------------------------------------------------------{{{
 
-set spell spelllang=en_us 
+set nocompatible
+set background=dark
+syntax on
+filetype on
+filetype plugin on
 set number relativenumber
-let mapleader = ","
-set directory^=$HOME/.vim/tmp//
+set foldenable
 set ignorecase
 set incsearch
 set hlsearch
-vnoremap . :norm.<CR>
-set undodir=~/.vim/undodir
-set undofile
+set hidden
+let g:markdown_folding = 1
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
+set directory^=$HOME/.vim/tmp//
+set wildmenu
+set wildmode=list:longest
+set wildignore=*.doc:,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+set spell spelllang=en_us 
 
+" }}}
 
+" PLUGINS ----------------------------------------------------------------{{{
+call plug#begin('~/.vim/plugged')
 
-hi clear SpellBad
-hi SpellBad cterm=underline
-" Set style for gVim
-hi SpellBad gui=undercurl
+Plug 'vimwiki/vimwiki'
+Plug 'kyoz/purify', { 'rtp': 'vim' }
+Plug 'Konfekt/FastFold'
+Plug 'reedes/vim-pencil'
+Plug 'tpope/vim-markdown'
+
+call plug#end()
 
 " vimwiki settings
-set nocompatible
-filetype plugin on
-syntax on
 let g:vimwiki_list = [{'path': '~/Google\ Drive/My\ Drive/Notes/Wiki/',
 		      \ 'syntax': 'markdown', 'ext': '.md',
                       \ 'path_html': '~/Google\ Drive/My\ Drive/Notes/Wiki/wiki_html'}]
+let g:vimwiki_folding = 'custom'
+autocmd FileType vimwiki setlocal syntax=markdown
+
+" Pencil
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init()
+augroup END 
+let g:markdown_syntax_conceal = 1
+
+colorscheme purify
+" }}}
+
+" MAPPINGS ---------------------------------------------------------------{{{
+
+let mapleader = ","
+nnoremap Y y$
+
+nnoremap <leader>w<leader>t :VimwikiMakeDiaryNote<CR>zM:$<CR>o<ESC>0C#<Space><c-r>=strftime("%I:%M %p")<cr><cr><cr><up><tab>-<Space> 
+iab wdate ## <c-r>=strftime("%a, %b %d %Y")<cr><cr><tab>- 
+iab idate <c-r>=strftime("%a, %b %d %Y")<cr>
+iab idtime <c-r>=strftime("%I:%M %p")<cr>
+
+" Buffer management
+nnoremap gb :ls<CR>:b<Space>
+set wildcharm=<C-z>
+nnoremap <leader>b :buffer <C-z><S-Tab>
+nnoremap <leader>B :sbuffer <C-z><S-Tab>
+nnoremap <PageUp>   :bprevious<CR>
+nnoremap <PageDown> :bnext<CR>
+
+" }}}
+
+" VIMSCRIPT --------------------------------------------------------------{{{
+
+" Autowite .vimrc File
+autocmd! bufwritepost .vimrc source %
+
+" This will enable code folding.
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+augroup END
+
+" Install vim plug if not installed
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+if version >= 703
+    set undodir=~/.vim/undodir
+    set undofile
+    set undoreload=10000
+endif
+" }}}
+
+" STATUS LINE ------------------------------------------------------------{{{
+
+" Clear status line when vimrc is reloaded.
+set statusline=
+
+" Status line left side.
+set statusline+=\ %F\ %M\ %Y\ %R
+
+" Use a divider to separate the left side from the right side.
+set statusline+=%=
+
+" Status line right side.
+set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ percent:\ %p%%
+
+" Show the status on the second to last line.
+set laststatus=2
+
+" }}}
