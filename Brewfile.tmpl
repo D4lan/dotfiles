@@ -13,7 +13,8 @@ cask 'rectangle'
 cask 'karabiner-elements'
 
 {{- if eq .location "home" }}
-# Install these on home machines only
+# Install these on home machines 
+brew 'bitwarden-cli'
 cask 'google-chrome'
 {{- end }}
 
