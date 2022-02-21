@@ -8,6 +8,7 @@
 "                 ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " GLOBAL ----------------------------------------------------------------{{{
 
 set nocompatible
@@ -21,7 +22,8 @@ set ignorecase
 set incsearch
 set hlsearch
 set hidden
-let g:markdown_folding = 1
+let g:markdown_folding = 2
+let g:markdown_syntax_conceal = 1
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
 set directory^=$HOME/.vim/tmp//
@@ -29,6 +31,7 @@ set wildmenu
 set wildmode=list:longest
 set wildignore=*.doc:,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 set spell spelllang=en_us 
+set backspace=indent,eol,start
 
 " }}}
 
@@ -38,6 +41,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'vimwiki/vimwiki'
 Plug 'kyoz/purify', { 'rtp': 'vim' }
 Plug 'Konfekt/FastFold'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim'
 Plug 'reedes/vim-pencil'
 Plug 'tpope/vim-markdown'
 
@@ -48,15 +53,38 @@ let g:vimwiki_list = [{'path': '~/Google\ Drive/My\ Drive/Notes/Wiki/',
 		      \ 'syntax': 'markdown', 'ext': '.md',
                       \ 'path_html': '~/Google\ Drive/My\ Drive/Notes/Wiki/wiki_html'}]
 let g:vimwiki_folding = 'custom'
-autocmd FileType vimwiki setlocal syntax=markdown
 
 " Pencil
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd call pencil#init()
-  autocmd FileType text         call pencil#init()
-augroup END 
-let g:markdown_syntax_conceal = 1
+"augroup pencil
+"  autocmd!
+"  autocmd FileType markdown,mkd call pencil#init()
+"  autocmd FileType text         call pencil#init()
+"augroup END 
+let g:pencil#autoformat = 0
+let g:pencil#textwidth = 120
+
+" Goyo/limelight
+let g:goyo_width = 121
+function! s:goyo_enter()
+    Limelight
+    Pencil
+    set nobreakindent
+    set noautoindent
+    set noshowmode
+    set noshowcmd
+endfunction
+
+function! s:goyo_leave()
+    Limelight!
+    PencilOff
+    set showmode
+    set showcmd
+    set autoindent
+    set breakindent
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 colorscheme purify
 " }}}
@@ -66,6 +94,9 @@ colorscheme purify
 let mapleader = ","
 nnoremap Y y$
 
+inoremap <m-bs> <c-w>
+nnoremap <c-s> [s1z=<c-o>
+vnoremap . :norm.<CR>
 nnoremap <leader>w<leader>t :VimwikiMakeDiaryNote<CR>zM:$<CR>o<ESC>0C#<Space><c-r>=strftime("%I:%M %p")<cr><cr><cr><up><tab>-<Space> 
 iab wdate ## <c-r>=strftime("%a, %b %d %Y")<cr><cr><tab>- 
 iab idate <c-r>=strftime("%a, %b %d %Y")<cr>
