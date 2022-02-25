@@ -22,7 +22,7 @@ set ignorecase
 set incsearch
 set hlsearch
 set hidden
-let g:markdown_folding = 2
+let g:markdown_folding = 1
 let g:markdown_syntax_conceal = 1
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
@@ -32,6 +32,7 @@ set wildmode=list:longest
 set wildignore=*.doc:,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 set spell spelllang=en_us 
 set backspace=indent,eol,start
+let mapleader = ","
 
 " }}}
 
@@ -44,7 +45,8 @@ Plug 'Konfekt/FastFold'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'reedes/vim-pencil'
-Plug 'tpope/vim-markdown'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
@@ -52,20 +54,22 @@ call plug#end()
 let g:vimwiki_list = [{'path': '~/Google\ Drive/My\ Drive/Notes/Wiki/',
 		      \ 'syntax': 'markdown', 'ext': '.md',
                       \ 'path_html': '~/Google\ Drive/My\ Drive/Notes/Wiki/wiki_html'}]
-let g:vimwiki_folding = 'custom'
+let g:vimwiki_folding = 'expr'
+let g:vimwiki_global_ext = 0
+nnoremap <leader>w<leader>t :VimwikiMakeDiaryNote<CR>zM:$<CR>o<ESC>0C#<Space><c-r>=strftime("%I:%M %p")<cr><cr><cr><up><tab>-<Space>
 
 " Pencil
-"augroup pencil
-"  autocmd!
-"  autocmd FileType markdown,mkd call pencil#init()
-"  autocmd FileType text         call pencil#init()
-"augroup END 
 let g:pencil#autoformat = 0
 let g:pencil#textwidth = 120
 
 " Goyo/limelight
 let g:goyo_width = 121
+let g:limelight_conceal_ctermfg = 'gray'
 function! s:goyo_enter()
+    if executable('tmux') && strlen($TMUX)
+      silent !tmux set status off
+      silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+    endif
     Limelight
     Pencil
     set nobreakindent
@@ -75,6 +79,10 @@ function! s:goyo_enter()
 endfunction
 
 function! s:goyo_leave()
+    if executable('tmux') && strlen($TMUX)
+      silent !tmux set status on
+      silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+    endif
     Limelight!
     PencilOff
     set showmode
@@ -87,20 +95,25 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 colorscheme purify
+let g:airline_theme='serene'
+
 " }}}
 
 " MAPPINGS ---------------------------------------------------------------{{{
 
-let mapleader = ","
 nnoremap Y y$
 
 inoremap <m-bs> <c-w>
 nnoremap <c-s> [s1z=<c-o>
+nnoremap <leader>p :Goyo<CR>
 vnoremap . :norm.<CR>
-nnoremap <leader>w<leader>t :VimwikiMakeDiaryNote<CR>zM:$<CR>o<ESC>0C#<Space><c-r>=strftime("%I:%M %p")<cr><cr><cr><up><tab>-<Space> 
 iab wdate ## <c-r>=strftime("%a, %b %d %Y")<cr><cr><tab>- 
 iab idate <c-r>=strftime("%a, %b %d %Y")<cr>
 iab idtime <c-r>=strftime("%I:%M %p")<cr>
+
+" Folding
+nnoremap <silent> <leader>zj :<c-u>call RepeatCmd('call NextClosedFold("j")')<cr>
+nnoremap <silent> <leader>zk :<c-u>call RepeatCmd('call NextClosedFold("k")')<cr>
 
 " Buffer management
 nnoremap gb :ls<CR>:b<Space>
@@ -117,7 +130,7 @@ nnoremap <PageDown> :bnext<CR>
 " Autowite .vimrc File
 autocmd! bufwritepost .vimrc source %
 
-" This will enable code folding.
+" This will enable code folding in .vimrc
 augroup filetype_vim
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
@@ -135,6 +148,30 @@ if version >= 703
     set undofile
     set undoreload=10000
 endif
+
+" Goto next fold
+function! NextClosedFold(dir)
+    let cmd = 'norm!z' . a:dir
+    let view = winsaveview()
+    let [l0, l, open] = [0, view.lnum, 1]
+    while l != l0 && open
+        exe cmd
+        let [l0, l] = [l, line('.')]
+        let open = foldclosed(l) < 0
+    endwhile
+    if open
+        call winrestview(view)
+    endif
+endfunction
+
+function! RepeatCmd(cmd) range abort
+    let n = v:count < 1 ? 1 : v:count
+    while n > 0
+        exe a:cmd
+        let n -= 1
+    endwhile
+endfunction
+
 " }}}
 
 " STATUS LINE ------------------------------------------------------------{{{
