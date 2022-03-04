@@ -41,12 +41,15 @@ let mapleader = ","
 call plug#begin('~/.vim/plugged')
 
 Plug 'vimwiki/vimwiki'
-Plug 'kyoz/purify', { 'rtp': 'vim' }
 Plug 'Konfekt/FastFold'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'preservim/vim-pencil'
-Plug 'lifepillar/vim-solarized8'
+
+"Themes
+Plug 'dracula/vim', { 'as': 'dracula' }
+"Plug 'lifepillar/vim-solarized8'
+"Plug 'kyoz/purify', { 'rtp': 'vim' }
 
 call plug#end()
 
@@ -96,7 +99,7 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 nnoremap <leader>p :Goyo<CR>
 
-colorscheme solarized8_flat
+colorscheme dracula
 
 " }}}
 
