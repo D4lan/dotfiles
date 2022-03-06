@@ -135,6 +135,8 @@ nnoremap <PageDown> :bnext<CR>
 
 " Autowite .vimrc File
 autocmd! bufwritepost .vimrc source %
+autocmd BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path "%"
+
 
 " This will enable code folding in .vimrc
 augroup filetype_vim
