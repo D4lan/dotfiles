@@ -23,6 +23,7 @@ set ignorecase
 set incsearch
 set hlsearch
 set hidden
+let &t_Co=256
 let g:markdown_folding = 1
 let g:markdown_syntax_conceal = 1
 let g:netrw_liststyle = 3
@@ -34,7 +35,7 @@ set directory^=$HOME/.vim/tmp//
 set wildmenu
 set wildmode=list:longest
 set wildignore=*.doc:,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
-set spell spelllang=en_us 
+set spell spelllang=en_us
 set backspace=indent,eol,start
 let mapleader = ","
 
@@ -51,6 +52,8 @@ Plug 'preservim/vim-pencil'
 
 "Themes
 Plug 'dracula/vim', { 'as': 'dracula' }
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 "Plug 'lifepillar/vim-solarized8'
 "Plug 'kyoz/purify', { 'rtp': 'vim' }
 
@@ -58,8 +61,8 @@ call plug#end()
 
 " vimwiki settings
 let g:vimwiki_list = [{'path': '~/Google\ Drive/My\ Drive/Notes/Wiki/',
-		      \ 'syntax': 'markdown', 'ext': '.md',
-                      \ 'path_html': '~/Google\ Drive/My\ Drive/Notes/Wiki/wiki_html'}]
+                               \ 'syntax': 'markdown', 'ext': '.md',
+                               \ 'path_html': '~/Google\ Drive/My\ Drive/Notes/Wiki/wiki_html'}]
 let g:vimwiki_folding = 'expr'
 let g:vimwiki_global_ext = 0
 nnoremap <leader>w<leader>t :VimwikiMakeDiaryNote<CR>zM:$<CR>o<ESC>0C#<Space><c-r>=strftime("%I:%M %p")<cr><cr><cr><up><tab>-<Space>
@@ -102,7 +105,37 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 nnoremap <leader>p :Goyo<CR>
 
+" Themes
 colorscheme dracula
+"let g:airline_powerline_fonts = 1
+"let g:airline_theme='zenburn'
+"
+"if !exists('g:airline_symbols')
+"    let g:airline_symbols = {}
+"endif
+"
+"" unicode symbols
+"let g:airline_left_sep = '»'
+"let g:airline_left_sep = '▶'
+"let g:airline_right_sep = '«'
+"let g:airline_right_sep = '◀'
+"let g:airline_symbols.linenr = '␊'
+"let g:airline_symbols.linenr = '␤'
+"let g:airline_symbols.linenr = '¶'
+"let g:airline_symbols.branch = '⎇'
+"let g:airline_symbols.paste = 'ρ'
+"let g:airline_symbols.paste = 'Þ'
+"let g:airline_symbols.paste = '∥'
+"let g:airline_symbols.whitespace = 'Ξ'
+"
+"" airline symbols
+"let g:airline_left_sep = ''
+"let g:airline_left_alt_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_right_alt_sep = ''
+"let g:airline_symbols.branch = ''
+"let g:airline_symbols.readonly = ''
+"let g:airline_symbols.linenr = ''
 
 " }}}
 
