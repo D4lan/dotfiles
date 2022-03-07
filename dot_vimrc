@@ -106,6 +106,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 nnoremap <leader>p :Goyo<CR>
 
 " Themes
+let g:dracula_colorterm = 0
 colorscheme dracula
 "let g:airline_powerline_fonts = 1
 "let g:airline_theme='zenburn'
@@ -136,6 +137,8 @@ colorscheme dracula
 "let g:airline_symbols.branch = ''
 "let g:airline_symbols.readonly = ''
 "let g:airline_symbols.linenr = ''
+
+highlight Folded ctermfg=102 guibg=NONE ctermbg=NONE
 
 " }}}
 
@@ -168,7 +171,7 @@ nnoremap <PageDown> :bnext<CR>
 
 " Autowite .vimrc File
 autocmd BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path "%"
-autocmd! bufwritepost .vimrc source %
+autocmd! bufwritepost .vimrc source ~/.vimrc
 
 
 " This will enable code folding in .vimrc
