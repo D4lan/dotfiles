@@ -1,4 +1,5 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 "
 "               ██╗   ██╗██╗███╗   ███╗██████╗  ██████╗
 "               ██║   ██║██║████╗ ████║██╔══██╗██╔════╝
@@ -82,6 +83,7 @@ function! s:goyo_enter()
     endif
     Limelight
     Pencil
+    highlight Folded ctermfg=102 guibg=NONE ctermbg=NONE
     set nobreakindent
     set noautoindent
     set noshowmode
@@ -95,6 +97,7 @@ function! s:goyo_leave()
     endif
     Limelight!
     PencilOff
+    highlight Folded ctermfg=102 guibg=NONE ctermbg=NONE
     set showmode
     set showcmd
     set autoindent
@@ -252,3 +255,4 @@ endif
 "set laststatus=2
 
 " }}}
+
