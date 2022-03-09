@@ -30,6 +30,7 @@ vim.opt.wrap = true --do not wrap lines even if very long
 vim.opt.eol = false -- show if there's no eol char
 -- vim.opt.showbreak= '↪' -- character to show when line is broken
 
+vim.g.markdown_folding = 1
 vim.g.markdown_syntax_conceal = 1
 
 vim.g.netrw_liststyle = 3
