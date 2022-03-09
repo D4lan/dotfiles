@@ -28,7 +28,8 @@ end
 -- Yank whole line
 nmap('Y','y$')
 
--- Go to next spelling
+-- Spelling
+nmap('<leader>s',':set spell!<CR>')
 nmap('<c-s>','[s1z=<c-o>')
 
 -- Allow repeated commands in Visual mode
