@@ -8,6 +8,7 @@ vim.opt.backspace = "indent,eol,start"
 vim.opt.completeopt = 'menuone,noselect'
 vim.opt.history = 1000
 vim.opt.startofline = true
+vim.opt.keywordprg = ':help' -- Use help instead of :man
 
 -- Mapping waiting time
 vim.opt.timeout = false
@@ -23,7 +24,7 @@ vim.opt.list = false -- do not display white characters
 vim.opt.foldenable = true
 vim.opt.foldlevel = 4 -- limit folding to 4 levels
 vim.opt.foldmethod = 'syntax' -- use language syntax to generate folds
-vim.opt.wrap = false --do not wrap lines even if very long
+vim.opt.wrap = true --do not wrap lines even if very long
 vim.opt.eol = false -- show if there's no eol char
 vim.opt.showbreak= '↪' -- character to show when line is broken
 
@@ -36,13 +37,24 @@ vim.g.netrw_winsize = 75
 vim.opt.background = 'dark'
 
 -- Backup files
---vim.opt.backup = true -- use backup files
---vim.opt.writebackup = false
+vim.opt.backup = true -- use backup files
+vim.opt.writebackup = false
 vim.opt.swapfile = true -- use swap file
-vim.opt.undodir = HOME .. '/.config/nvim/tmp/undo//'     -- undo files
-vim.opt.backupdir = HOME .. '/.config/nvim/tmp/backup//' -- backups
-vim.opt.directory = '/.config/nvim/tmp/swap//'   -- swap files
+vim.opt.undodir = HOME .. '/.config/nvim/tmp/undo/'     -- undo files
+vim.opt.backupdir = HOME .. '/.config/nvim/tmp/backup/' -- backups
+vim.opt.directory = HOME .. '/.config/nvim/tmp/swap/'   -- swap files
 
 -- Commands mode
 vim.opt.wildmenu = true -- on TAB, complete options for system command
 vim.opt.wildignore = 'deps,.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,.DS_Store,*.aux,*.out,*.toc'
+
+-- Autorun
+vim.cmd([[
+  augroup update_user_config
+    autocmd!
+    autocmd BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path "%"
+    autocmd BufWritePost ~/.local/share/chezmoi/private_dot_config/nvim/*.lua source $MYVIMRC | echom "doing it test"
+  augroup END
+]])
+
+
