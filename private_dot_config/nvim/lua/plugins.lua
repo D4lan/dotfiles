@@ -26,7 +26,8 @@ packer.startup({function(use)
   use 'Pocco81/TrueZen.nvim'
   -- Vim wiki
   use 'vimwiki/vimwiki'
-
+  -- Variaty of plugins
+  use { 'echasnovski/mini.nvim', branch = 'stable' }
   -- LSP
   use {
     'VonHeikemen/lsp-zero.nvim',
@@ -66,8 +67,14 @@ vim.g.vimwiki_ext2syntax = {['.md'] = 'markdown', ['.markdown'] = 'markdown', ['
 vim.g.vimwiki_folding = 'expr'
 vim.g.vimwiki_global_ext = 0
 
+-- Mini plugins
+require('mini.surround').setup()
+
 -- LSP
 local lsp = require('lsp-zero')
 lsp.preset('recommended')
 lsp.nvim_workspace()
 lsp.setup()
+
+
+
