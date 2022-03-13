@@ -1,4 +1,4 @@
-OME = os.getenv("HOME")
+HOME = os.getenv("HOME")
 
 vim.g.mapleader = ','
 
@@ -72,7 +72,7 @@ vim.cmd([[
   augroup update_user_config
     autocmd!
     autocmd BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path "%"
-    autocmd BufWritePost ~/.local/share/chezmoi/private_dot_config/nvim/lua/*.lua source ~/.config/nvim/lua/%
+    autocmd BufWritePost ~/.local/share/chezmoi/private_dot_config/nvim/lua/*.lua source ~/.config/nvim/init.lua
     autocmd BufWritePost plugins.la Packer Compile
   augroup END
 ]])
