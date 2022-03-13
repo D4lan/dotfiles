@@ -21,10 +21,34 @@ packer.init({
 packer.startup(function()
   local use = use
 
-  use "Mofiqul/dracula.nvim"
-  use "Pocco81/TrueZen.nvim"
-  use "vimwiki/vimwiki"
+  -- Colorscheme
+  use 'Mofiqul/dracula.nvim'
+  -- Distraction free writing
+  use 'Pocco81/TrueZen.nvim'
+  -- Vim wiki
+  use 'vimwiki/vimwiki'
 
+  -- LSP
+  use {
+    'VonHeikemen/lsp-zero.nvim',
+    requires = {
+      -- LSP Support
+      {'neovim/nvim-lspconfig'},
+      {'williamboman/nvim-lsp-installer'},
+
+      -- Autocompletion
+      {'hrsh7th/nvim-cmp'},
+      {'hrsh7th/cmp-buffer'},
+      {'hrsh7th/cmp-path'},
+      {'saadparwaiz1/cmp_luasnip'},
+      {'hrsh7th/cmp-nvim-lsp'},
+      {'hrsh7th/cmp-nvim-lua'},
+
+      -- Snippets
+      {'L3MON4D3/LuaSnip'},
+      {'rafamadriz/friendly-snippets'},
+    }
+  }
   end
 )
 
@@ -38,3 +62,10 @@ vim.g.vimwiki_list = {{path = HOME .. '/Google\\ Drive/My\\ Drive/Notes/Wiki/', 
 vim.g.vimwiki_ext2syntax = {['.md'] = 'markdown', ['.markdown'] = 'markdown', ['.mdown'] = 'markdown'}
 vim.g.vimwiki_folding = 'expr'
 vim.g.vimwiki_global_ext = 0
+
+-- LSP
+local lsp = require('lsp-zero')
+
+lsp.preset('recommended')
+lsp.nvim_workspace()
+lsp.setup()

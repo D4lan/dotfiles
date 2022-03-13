@@ -22,6 +22,11 @@ vim.opt.showmatch  = true -- show matching brackets
 vim.opt.scrolloff = 3 -- always show 3 rows from edge of the screen
 vim.opt.synmaxcol = 300 -- stop syntax highlight after x lines for performance
 
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.expandtab = true
+
 vim.opt.list = false -- do not display white characters
 vim.opt.foldenable = true
 vim.opt.foldlevel = 4 -- limit folding to 4 levels
@@ -38,6 +43,7 @@ vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 75
 
 vim.opt.background = 'dark'
+vim.opt.termguicolors = true
 
 -- Sidebar
 vim.o.number = true -- line number on the left
