@@ -28,8 +28,9 @@ vim.opt.softtabstop = 2
 vim.opt.expandtab = true
 
 vim.opt.list = false -- do not display white characters
-vim.opt.foldenable = true
+vim.opt.foldenable = true -- enable folding
 vim.opt.foldlevel = 4 -- limit folding to 4 levels
+vim.opt.foldlevelstart = 1 --start the fold level at 1
 vim.opt.foldmethod = 'syntax' -- use language syntax to generate folds
 vim.opt.wrap = true --do not wrap lines even if very long
 vim.opt.eol = false -- show if there's no eol char
@@ -51,7 +52,7 @@ vim.o.relativenumber = true -- relative line number
 vim.o.numberwidth = 3 -- always reserve 3 spaces for line number
 vim.o.signcolumn = 'yes' -- keep 1 column for coc.vim  check
 vim.o.modelines = 0
-vim.o.showcmd = true -- display command in bottom bar
+vim.o.showcmd = false -- display command in bottom bar
 
 -- Backup files
 vim.opt.backup = true -- use backup files

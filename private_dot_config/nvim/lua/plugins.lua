@@ -18,8 +18,7 @@ packer.init({
 })
 
 --- startup and add configure plugins
-packer.startup(function()
-  local use = use
+packer.startup({function(use)
 
   -- Colorscheme
   use 'Mofiqul/dracula.nvim'
@@ -49,8 +48,12 @@ packer.startup(function()
       {'rafamadriz/friendly-snippets'},
     }
   }
-  end
-)
+  end,
+  config = {
+    display = {
+      open_fn = require('packer.util').float,
+    }
+}})
 
 -- Theme
 vim.cmd[[colorscheme dracula]]
@@ -65,7 +68,6 @@ vim.g.vimwiki_global_ext = 0
 
 -- LSP
 local lsp = require('lsp-zero')
-
 lsp.preset('recommended')
 lsp.nvim_workspace()
 lsp.setup()
