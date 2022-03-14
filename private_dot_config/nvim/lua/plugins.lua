@@ -28,6 +28,11 @@ packer.startup({function(use)
   use 'vimwiki/vimwiki'
   -- Variaty of plugins
   use { 'echasnovski/mini.nvim', branch = 'stable' }
+  --Telescope
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
   -- LSP
   use {
     'VonHeikemen/lsp-zero.nvim',
@@ -75,6 +80,4 @@ local lsp = require('lsp-zero')
 lsp.preset('recommended')
 lsp.nvim_workspace()
 lsp.setup()
-
-
 
