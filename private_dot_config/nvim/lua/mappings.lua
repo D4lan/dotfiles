@@ -28,6 +28,7 @@ end
 -- General
 Nmap('Y','y$') -- Yank whole line
 Vmap('.',':norm.<CR>') -- Allow repeated commands in Visual mode
+Nmap('<leader>/',':noh<CR>') -- Turn off highlighting
 
 -- Spelling
 Nmap('<leader>s',':set spell!<CR>')
@@ -49,6 +50,7 @@ vim.cmd 'abbrev idtime <c-r>=strftime("%I:%M %p")<cr>'
 vim.cmd 'abbrev wdate ## <c-r>=strftime("%a, %b %d %Y")<cr><cr><tab>-'
 Nmap('<leader>w<leader>t',':VimwikiMakeDiaryNote<CR>zM:$<CR>o<ESC>0C#<Space><c-r>=strftime("%I:%M %p")<cr><cr><cr><up><tab>-<Space>')
 Nmap("<leader>w<leader>d",":let@a=''<CR>:g/-<Space>\\[<Space>\\]/yank<Space>A<CR>:%s/<Space>\\[<Space>\\]//g<CR>:e<Space>/Volumes/GoogleDrive/My Drive/Notes/Wiki/List.md<CR>Gp")
+Nmap("<leader>w<leader>e",":let@a=''<CR>:g/-<Space>\\[X\\]/d<Space>A<CR>:VimwikiMakeDiaryNote<CR>GA<CR>#<SPACE>Tasks<SPACE>Done:<ESC>p:noh<CR>")
 
 -- Telescope
 Nmap('<leader>ff',':Telescope find_files<CR>')
