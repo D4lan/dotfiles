@@ -28,16 +28,9 @@ vim.opt.softtabstop = 2
 vim.opt.expandtab = true
 
 vim.opt.list = false -- do not display white characters
-vim.opt.foldenable = true -- enable folding
-vim.opt.foldlevel = 4 -- limit folding to 4 levels
-vim.opt.foldlevelstart = 0 --start the fold level at 1
-vim.opt.foldmethod = 'syntax' -- use language syntax to generate folds
 vim.opt.wrap = true --do not wrap lines even if very long
 vim.opt.eol = false -- show if there's no eol char
 -- vim.opt.showbreak= '↪' -- character to show when line is broken
-
-vim.g.markdown_folding = 1
-vim.g.markdown_syntax_conceal = 1
 
 vim.g.netrw_liststyle = 3
 vim.g.netrw_banner = 0
@@ -72,7 +65,9 @@ vim.cmd([[
   augroup update_user_config
     autocmd!
     autocmd BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path "%"
-    autocmd BufWritePost ~/.local/share/chezmoi/private_dot_config/nvim/lua/*.lua source ~/.config/nvim/init.lua
-    autocmd BufWritePost plugins.la Packer Compile
+    autocmd BufWritePost ~/.local/share/chezmoi/private_dot_config/nvim/lua/*.lua source ~/.config/nvim/plugin/init.lua
+    autocmd BufWritePost plugins.lua PackerCompile
+    autocmd BufWritePost plugins.lua PackerSync
+    autocmd BufWritePost plugins.lua PackerInstall
   augroup END
 ]])
