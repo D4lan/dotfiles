@@ -42,3 +42,11 @@ Nmap('k','gk')
 Nmap('0','g0')
 Nmap('^','g^')
 Nmap('$','g$')
+
+-- Other settings
+vim.g.markdown_folding = 1
+vim.g.markdown_syntax_conceal = 1
+vim.opt.foldenable = true -- enable folding
+vim.opt.foldlevel = 4 -- limit folding to 4 levels
+vim.opt.foldlevelstart = 0 --start the fold level at 1
+vim.opt.foldmethod = 'syntax' -- use language syntax to generate folds
