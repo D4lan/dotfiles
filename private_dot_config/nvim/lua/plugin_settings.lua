@@ -1,3 +1,4 @@
+
 -- Theme
 vim.cmd[[colorscheme dracula]]
 vim.g.dracula_transparent_bg = true
