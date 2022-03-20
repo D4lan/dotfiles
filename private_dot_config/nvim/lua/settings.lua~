@@ -1,4 +1,4 @@
-HOME = os.getenv("HOME")
+HOME = os.getenv,("HOME")
 
 vim.g.mapleader = ','
 
