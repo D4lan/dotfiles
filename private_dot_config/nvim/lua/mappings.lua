@@ -29,6 +29,7 @@ end
 Nmap('Y','y$') -- Yank whole line
 Vmap('.',':norm.<CR>') -- Allow repeated commands in Visual mode
 Nmap('<leader>/',':noh<CR>') -- Turn off highlighting
+Tmap('<Esc>','<C-\\><C-n>:q!<CR>') -- Exit from terminal
 
 -- Spelling
 Nmap('<leader>s',':set spell!<CR>')

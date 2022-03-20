@@ -21,6 +21,8 @@ vim.opt.ttimeoutlen = 100
 vim.opt.showmatch  = true -- show matching brackets
 vim.opt.scrolloff = 3 -- always show 3 rows from edge of the screen
 vim.opt.synmaxcol = 300 -- stop syntax highlight after x lines for performance
+vim.opt.splitright = true -- split the all windows to the right
+vim.opt.splitbelow = true -- split windows to the bottom
 
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -69,5 +71,13 @@ vim.cmd([[
     autocmd BufWritePost plugins.lua PackerCompile
     autocmd BufWritePost plugins.lua PackerSync
     autocmd BufWritePost plugins.lua PackerInstall
+  augroup END
+]])
+
+-- Remove numbers in Terminal
+vim.cmd([[
+  augroup terminal
+    autocmd!
+    autocmd TermOpen * setlocal nonumber norelativenumber
   augroup END
 ]])
